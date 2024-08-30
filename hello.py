@@ -21,30 +21,8 @@ def internal_server_error(e):
 
 @app.route('/')
 def index():
-     return render_template('index.html', name = name, current_time=datetime.utcnow())
+     return render_template('index.html', current_time=datetime.utcnow())
 
 
-#@app.route('/user/<name>/<prontuario>/<institution>')
-#def user(name, prontuario, institution):
-  #  return render_template('user.html', 
-       #                    name=name, 
-        #                   prontuario=prontuario,
-            #               institution=institution);
-
-@app.route('/professores>')
-def contextorequisicao(name):
-    user_agent = request.headers.get('User-Agent');
-    remote_addr = request.remote_addr;
-    remote_host = request.host;
-    return render_template('contexto.html',
-                           name=name, 
-                           user_agent=user_agent, 
-                           remote_addr=remote_addr,
-                           remote_host=remote_host);
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    app.run(debug=True)
