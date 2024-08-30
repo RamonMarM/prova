@@ -26,14 +26,14 @@ def index(name, prontuario):
      return render_template('index.html', name = name, prontuario = prontuario, current_time=datetime.utcnow())
 
 
-@app.route('/user/<name>/<prontuario>/<institution>')
-def user(name, prontuario, institution):
-    return render_template('user.html', 
-                           name=name, 
-                           prontuario=prontuario,
-                           institution=institution);
+#@app.route('/user/<name>/<prontuario>/<institution>')
+#def user(name, prontuario, institution):
+  #  return render_template('user.html', 
+       #                    name=name, 
+        #                   prontuario=prontuario,
+            #               institution=institution);
 
-@app.route('/contextorequisicao/<name>')
+@app.route('/professores>')
 def contextorequisicao(name):
     user_agent = request.headers.get('User-Agent');
     remote_addr = request.remote_addr;
