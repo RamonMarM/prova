@@ -20,8 +20,10 @@ def internal_server_error(e):
 
 
 @app.route('/')
-def index():
-     return render_template('index.html', current_time=datetime.utcnow())
+def index(name, prontuario):
+    name = Ramon;
+    prontuario = pt3019471;
+     return render_template('index.html', name = name, prontuario = prontuario, current_time=datetime.utcnow())
 
 
 @app.route('/user/<name>/<prontuario>/<institution>')
