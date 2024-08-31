@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Flasky{% endblock %}
+{% block title %}Cadastro de Professores{% endblock %}
 
 {% block page_content %}
-
+<h2>Cadastre o novo Professor</h2>
 {{ wtf.quick_form(form) }}
 
 <h2>Relação de Professores cadastrados</h2>
@@ -12,7 +12,7 @@
     <thead>
         <tr>
             <th>Professor</th>
-            <th>Disisciplina</th>
+            <th>Disciplina</th>
         </tr>
     </thead>
     <tbody>
