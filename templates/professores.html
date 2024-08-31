@@ -4,26 +4,26 @@
 {% block title %}Cadastro de Professores{% endblock %}
 
 {% block page_content %}
-<div class="page-header"></div>
-<h2>Cadastre o novo Professor</h2>
-{{ wtf.quick_form(form) }}
+<div class="page-header">
+    <h2>Cadastre o novo Professor</h2>
+    {{ wtf.quick_form(form) }}
 
-<h2>Relação de Professores cadastrados</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Professor</th>
-            <th>Disciplina</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for key in user_all %}
-        <tr>
-            <td>{{ key.username }}</td>
-            <td>{{ key.disc.name }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+    <h2>Relação de Professores cadastrados</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Professor</th>
+                <th>Disciplina</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key in user_all %}
+            <tr>
+                <td>{{ key.username }}</td>
+                <td>{{ key.disc.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
