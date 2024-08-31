@@ -1,29 +1,61 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Cadastro de Professores{% endblock %}
+{% block title %}Flasky{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-    <h2>Cadastre o novo Professor</h2>
-    {{ wtf.quick_form(form) }}
-
-    <h2>Relação de Professores cadastrados</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Professor</th>
-                <th>Disciplina</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for key in user_all %}
-            <tr>
-                <td>{{ key.username }}</td>
-                <td>{{ key.disc.name }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h1>Olá, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+    {% if not known %}
+    <p>Bem vindo Professor!</p>
+    {% else %}
+    <p>Feliz em vê-lo novamente, professor</p>
+    {% endif %}
 </div>
+{{ wtf.quick_form(form) }}
+
+<h2>Relação de professores cadastrados</h2>
+<p>Quantidade: {{ user_all | length }}</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome do usuário</th>
+            <th>Função</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key in user_all %}
+        <tr>
+            <td>{{ key.username }}</td>
+            <td>{{ key.disc.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Relação de funções cadastradas</h2>
+<p>Quantidade: {{ discs | length }}</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Professor</th>
+            <th>Disciplina</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for disc in discs %}
+        <tr>
+            <td>{{ disc.name }}</td>
+            <td>
+                <ol>
+                {% for user in disc.users %}
+                    <li>{{ user.username }}</li>
+                {% endfor %}
+                </ol>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
