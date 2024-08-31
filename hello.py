@@ -65,7 +65,7 @@ def index():
      return render_template('index.html', current_time=datetime.utcnow())
 
 @app.route('/professores', methods=['GET', 'POST'])
-def index():
+def professores():
     form = NameForm()
     user_all = User.query.all()
     discs = Disc.query.all()
@@ -86,8 +86,8 @@ def index():
             session['known'] = True
         session['name'] = form.name.data
         session['disc'] = form.disc.data
-        return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'),
+        return redirect(url_for('professores'))
+    return render_template('professores.html', form=form, name=session.get('name'),
                            known=session.get('known', False),
                            user_all=user_all, discs=discs)
 
