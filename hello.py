@@ -22,7 +22,7 @@ moment = Moment(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-DISC = [('DSWA5', 'DSWA5'), ('GPSA5', 'GPSA5'), ('IHCA5', 'IHCA5'), ('SODA5', 'SODA5'), ('PJIA5', 'PJIA5'), ('TCOA5', 'TCOA5') ]
+DISCS = [('DSWA5', 'DSWA5'), ('GPSA5', 'GPSA5'), ('IHCA5', 'IHCA5'), ('SODA5', 'SODA5'), ('PJIA5', 'PJIA5'), ('TCOA5', 'TCOA5') ]
 
 class Disc(db.Model):
     __tablename__ = 'discs'
@@ -44,7 +44,7 @@ class User(db.Model):
 
 class NameForm(FlaskForm):
     name = StringField('Cadastre o novo Professor', validators=[DataRequired()])
-    disc = SelectField('Disciplina associada?', choices=DISC, validators=[DataRequired()])
+    disc = SelectField('Disciplina associada?', choices=DISCS, validators=[DataRequired()])
     submit = SubmitField('Cadastrar')
 
  @app.shell_context_processor
@@ -90,7 +90,7 @@ def professores():
         return redirect(url_for('professores'))
     return render_template('professores.html', form=form, name=session.get('name'),
                            known=session.get('known', False),
-                           user_all=user_all, discs=discs);
+                           user_all=user_all, discs=discs)
 
 
 if __name__ == '__main__':
