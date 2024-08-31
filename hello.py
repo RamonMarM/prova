@@ -47,7 +47,7 @@ class NameForm(FlaskForm):
     disc = SelectField('Disciplina associada?', choices=DISCS, validators=[DataRequired()])
     submit = SubmitField('Cadastrar')
 
- @app.shell_context_processor
+@app.shell_context_processor
 def make_shell_context():
     return dict(db=db, User=User, Disc=Disc)
 
