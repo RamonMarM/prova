@@ -7,14 +7,16 @@ from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from datetime import datetime
+
 
 app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] =\
+    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 bootstrap = Bootstrap(app)
@@ -22,7 +24,7 @@ moment = Moment(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-DISC = [('DSWA5', 'DSWA5'), ('GPSA5', 'GPSA5'), ('IHCA5', 'IHCA5'), ('SODA5', 'SODA5'), ('PJIA5', 'PJIA5'), ('TCOA5', 'TCOA5')]
+DISC = [('DSWA5', 'DSWA5'), ('GPSA5', 'GPSA5'), ('IHCA5', 'IHCA5'), ('SODA5', 'SODA5'), ('PJIA5', 'PJIA5'), ('TCOA5', 'TCOA5') ]
 
 class Disc(db.Model):
     __tablename__ = 'discs'
@@ -47,22 +49,26 @@ class NameForm(FlaskForm):
     disc = SelectField('Disciplina associada?', choices=DISC, validators=[DataRequired()])
     submit = SubmitField('Cadastrar')
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+
 @app.route('/')
 def index():
-    return render_template('index.html', current_time=datetime.utcnow())
+     return render_template('index.html', current_time=datetime.utcnow())
 
 @app.route('/professores', methods=['GET', 'POST'])
 def professores():
     form = NameForm()
     user_all = User.query.all()
+    discs = Disc.query.all()
     
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.name.data).first()
@@ -80,9 +86,11 @@ def professores():
             session['known'] = True
         session['name'] = form.name.data
         session['disc'] = form.disc.data
-        return redirect(url_for('professores'))  
+        return redirect(url_for('professores'))
     return render_template('professores.html', form=form, name=session.get('name'),
-                           known=session.get('known', False), user_all=user_all)
+                           known=session.get('known', False),
+                           user_all=user_all, discs=discs)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
