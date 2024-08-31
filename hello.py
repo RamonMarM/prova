@@ -47,6 +47,9 @@ class NameForm(FlaskForm):
     disc = SelectField('Disciplina associada?', choices=DISC, validators=[DataRequired()])
     submit = SubmitField('Cadastrar')
 
+ @app.shell_context_processor
+def make_shell_context():
+    return dict(db=db, User=User, Disc=Disc)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -87,7 +90,7 @@ def professores():
         return redirect(url_for('professores'))
     return render_template('professores.html', form=form, name=session.get('name'),
                            known=session.get('known', False),
-                           user_all=user_all, discs=discs)
+                           user_all=user_all, discs=discs);
 
 
 if __name__ == '__main__':
