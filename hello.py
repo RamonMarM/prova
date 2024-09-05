@@ -61,30 +61,10 @@ def index():
 
 @app.route('/professores', methods=['GET', 'POST'])
 def professores():
-    form = NameForm()
     user_all = User.query.all()
     discs = Disc.query.all()
-
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.name.data).first()
-        if user is None:
-            user_disc = Disc.query.filter_by(name=form.disc.data).first()
-            if user_disc is None:
-                user_disc = Disc(name=form.disc.data)
-                db.session.add(user_disc)
-                db.session.commit()
-            user = User(username=form.name.data, disc=user_disc)
-            db.session.add(user)
-            db.session.commit()
-            session['known'] = False
-        else:
-            session['known'] = True
-        session['name'] = form.name.data
-        session['disc'] = form.disc.data
-        return redirect(url_for('professores'))
-    
-    return render_template('professores.html', form=form, name=session.get('name'),
-                           known=session.get('known', False), user_all=user_all, discs=discs)
+   
+     return render_template('professores.html', user_all=user_all, discs=discs)
 
 if __name__ == '__main__':
     app.run(debug=True)
